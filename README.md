@@ -1,4 +1,4 @@
-# Getting Started with GoFood - Full Stack Mern Application
+# Getting Started with GoFood - Full Stack MERN Application
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
