@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Navbar from '../components/Navbar'
 import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
 
 export default function Signup() {
     const [credentials, setcredentials] = useState({ name: "", email: "", password: "", geolocation: "" });
@@ -44,7 +45,7 @@ export default function Signup() {
                         <input type="text" className="form-control" name='name' value={credentials.name} onChange={onChange} />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="email" className="form-label">Email address</label>
+                        <label htmlFor="email" className="form-label">Email Address</label>
                         <input type="email" className="form-control" name='email' value={credentials.email} onChange={onChange} />
                     </div>
                     <div className="mb-3">
@@ -58,6 +59,9 @@ export default function Signup() {
                     <button type="submit" className="btn btn-success">Submit</button>
                     <Link to="/login" className="m-3 btn btn-danger">Already A User? Login</Link>
                 </form>
+            </div>
+            <div>
+                <Footer />
             </div>
         </>
     )
