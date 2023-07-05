@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const mongoURI = "mongodb+srv://pranjalchaplot:otTGQD9MyerH3J4N@cluster0.9ndyej8.mongodb.net/goFoodmern?retryWrites=true&w=majority";
+const { mongoURI } = require('../ENV');
 
 const mongoDB = async () => {
     try {
