@@ -23,7 +23,7 @@ export default function Signup() {
         });
 
         const responseJSON = await response.json();
-        console.log(responseJSON);
+
 
         if (!responseJSON.success) {
             alert("Enter Valid Credentials");

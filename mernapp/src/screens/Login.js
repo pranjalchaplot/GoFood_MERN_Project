@@ -24,14 +24,12 @@ export default function Login() {
         });
 
         const responseJSON = await response.json();
-        console.log(responseJSON);
 
         if (!responseJSON.success) {
             alert("Enter Valid Credentials");
         }
         else if (responseJSON.success) {
             localStorage.setItem("authToken", responseJSON.authToken)
-            console.log(localStorage.getItem("authToken"));
             navigate('/');
         }
     };

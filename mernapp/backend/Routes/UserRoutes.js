@@ -48,7 +48,6 @@ router.post("/loginuser",
         if (result.isEmpty()) {
             let email = request.body.email;
             try {
-                console.log(request.body);
                 let userData = await User.findOne({ email });
 
                 if (!userData) {
