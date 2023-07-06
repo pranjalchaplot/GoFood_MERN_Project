@@ -30,6 +30,8 @@ export default function Login() {
             alert("Enter Valid Credentials");
         }
         else if (responseJSON.success) {
+            localStorage.setItem("authToken", responseJSON.authToken)
+            console.log(localStorage.getItem("authToken"));
             navigate('/');
         }
     };

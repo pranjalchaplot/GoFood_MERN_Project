@@ -1,7 +1,12 @@
 const express = require('express')
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
-const User = require('../models/User')
+const User = require('../models/User');
+
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
+const { JsonWebTokenSecret } = require('../../ENV');
 
 router.post("/createuser",
     body('name').isLength({ min: 5 }),
@@ -12,11 +17,12 @@ router.post("/createuser",
 
         const result = validationResult(request);
         if (result.isEmpty()) {
+            const salt = await bcrypt.genSalt(10);
+            let encryptedPass = await bcrypt.hash(request.body.password, salt);
             try {
-                console.log(request.body);
                 await User.create({
                     name: request.body.name,
-                    password: request.body.password,
+                    password: encryptedPass,
                     email: request.body.email,
                     location: request.body.location
                 })
@@ -49,11 +55,24 @@ router.post("/loginuser",
                     return response.status(400).json({ errors: "Login Credentials Invalid" });
                 }
 
-                if (request.body.password !== userData.password) {
+                const pwdCompare = await bcrypt.compare(request.body.password, userData.password);
+
+                if (!pwdCompare) {
                     return response.status(400).json({ errors: "Login Credentials Invalid" });
                 }
 
-                response.json({ success: true });
+                const data = {
+                    user: {
+                        id: userData.id
+                    }
+                };
+
+                let authToken = jwt.sign(data, JsonWebTokenSecret);
+
+                response.json({
+                    success: true,
+                    authToken: authToken
+                });
             }
             catch (ex) {
                 console.log(ex);
