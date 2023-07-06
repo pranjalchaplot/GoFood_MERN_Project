@@ -78,8 +78,7 @@ export default function Home() {
                                             <>
                                                 <div key={item._id} className='col-12 col-md-6 col-lg-3'>
                                                     <ItemCard
-                                                        cardTitle={item.name}
-                                                        imgURL={item.img}
+                                                        foodItem={item}
                                                         options={item.options[0]} />
                                                 </div>
                                             </>
