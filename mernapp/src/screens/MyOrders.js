@@ -17,7 +17,6 @@ export default function MyOrder() {
             })
         }).then(async (res) => {
             let response = await res.json();
-            console.log(response);
             await setorderData(response)
         })
 
