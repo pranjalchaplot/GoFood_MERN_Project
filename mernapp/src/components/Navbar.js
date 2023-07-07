@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
+import { UseCart } from '../components/ContextReducer';
+import Badge from 'react-bootstrap/Badge';
+import Modal from '../Modal';
+import Cart from '../screens/Cart';
 
 export default function Navbar() {
+    const [CartView, setCartView] = useState(false);
+    let cartItems = UseCart();
+
     const navigate = useNavigate();
     const logoutHandler = () => {
         localStorage.removeItem("authToken");
@@ -23,7 +30,7 @@ export default function Navbar() {
                         {
                             (localStorage.getItem("authToken")) ?
                                 <li className="nav-item">
-                                    <Link className="nav-link active fs-5" aria-current="page" to="/">My Orders</Link>
+                                    <Link className="nav-link active fs-5" aria-current="page" to="/myorders">My Orders</Link>
                                 </li>
                                 : ""
                         }
@@ -36,10 +43,19 @@ export default function Navbar() {
                             </div>
                             :
                             <div>
-                                <div className="btn bg-white text-success mx-2">My Cart</div>
+                                <div className="btn bg-white text-success mx-2" onClick={() => setCartView(true)}>
+                                    My Cart {" "}
+                                    {
+                                        cartItems.length !== 0 ? <Badge pill bg='danger'>{cartItems.length}</Badge> : null
+                                    }
+                                </div>
+                                {
+                                    CartView ?
+                                        <Modal onClose={() => setCartView(false)}><Cart /></Modal> :
+                                        null
+                                }
                                 <div className="btn btn-danger text-white mx-2" onClick={logoutHandler}>Logout</div>
                             </div>
-
                     }
 
                 </div>
