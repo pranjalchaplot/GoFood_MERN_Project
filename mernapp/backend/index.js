@@ -13,8 +13,10 @@ app.use((req, res, next) => {
 
 
 app.use(express.json());
-app.use("/api", require('./Routes/UserRoutes'));
-app.use("/api", require('./Routes/ViewRoutes'));
+app.use("/api", require('./Routes/UserRoute'));
+app.use("/api", require('./Routes/ViewRoute'));
+app.use("/api", require('./Routes/OrderRoute'));
+
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
