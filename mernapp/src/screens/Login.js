@@ -30,6 +30,7 @@ export default function Login() {
         }
         else if (responseJSON.success) {
             localStorage.setItem("authToken", responseJSON.authToken)
+            localStorage.setItem("userEmail", credentials.email)
             navigate('/');
         }
     };

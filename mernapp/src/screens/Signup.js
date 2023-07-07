@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import Navbar from '../components/Navbar'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 
 export default function Signup() {
+    let navigate = useNavigate();
     const [credentials, setcredentials] = useState({ name: "", email: "", password: "", geolocation: "" });
 
     const submitHandler = async (e) => {
@@ -24,8 +25,12 @@ export default function Signup() {
 
         const responseJSON = await response.json();
 
-
-        if (!responseJSON.success) {
+        if (responseJSON.success) {
+            localStorage.setItem("authToken", responseJSON.authToken)
+            localStorage.setItem("userEmail", credentials.email)
+            navigate('/');
+        }
+        else {
             alert("Enter Valid Credentials");
         }
     };
